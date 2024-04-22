@@ -6,8 +6,8 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', 'J', 'mzJ`z')
 
 -- Center screen when moving half screens up or down
-vim.keymap.set('n', '<C-k>', '<C-d>zz')
-vim.keymap.set('n', '<C-j>', '<C-u>zz')
+vim.keymap.set('n', '<C-j>', '<C-d>zz')
+vim.keymap.set('n', '<C-k>', '<C-u>zz')
 
 -- Center the screen while searching
 vim.keymap.set('n', 'n', 'nzzzv')
@@ -33,3 +33,9 @@ vim.keymap.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left>
 
 -- Unmap Q
 vim.keymap.set('n', 'Q', '<nop>')
+
+-- Lazy
+vim.keymap.set('n', '<leader>lc', ':Lazy<CR>', { desc = '[L]azy [C]onsole' })
+vim.keymap.set('n', '<leader>ls', function()
+  require('lazy').sync { show = false }
+end, { desc = '[L]azy [S]ync' })

@@ -4,6 +4,7 @@
 -- See the kickstart.nvim README for more information
 return {
   'github/copilot.vim',
+  'wfxr/minimap.vim',
   require 'custom.plugins.harpoon',
   require 'custom.plugins.undotree',
   require 'custom.plugins.fugitive',

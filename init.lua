@@ -83,6 +83,11 @@ vim.opt.termguicolors = true
 vim.opt.isfname:append '@-@'
 vim.opt.colorcolumn = '80'
 
+vim.g.minimap_width = 10
+vim.g.minimap_auto_start = 1
+vim.g.minimap_auto_start_win_enter = 1
+vim.g.minimap_git_colors = 1
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -103,7 +108,7 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Explore shortcut
-vim.keymap.set('n', '<leader>pv', vim.cmd.Ex)
+vim.keymap.set('n', '<leader>x', vim.cmd.Ex, { desc = 'E[x]plore' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -188,6 +193,8 @@ require('lazy').setup({
         topdelete = { text = '‾' },
         changedelete = { text = '~' },
       },
+      current_line_blame = true,
+      preview_config = { row = 1, col = 0 },
     },
   },
 
@@ -313,7 +320,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader>f', builtin.buffers, { desc = '[ ] Find existing buffers' })
+      vim.keymap.set('n', '<leader>f', builtin.buffers, { desc = '[F]ind existing buffers' })
       vim.keymap.set('n', '<leader>gh', builtin.git_files, { desc = 'Search [G]it [H]ub Files' })
 
       -- Slightly advanced example of overriding default behavior and theme
@@ -552,7 +559,7 @@ require('lazy').setup({
     lazy = false,
     keys = {
       {
-        '<leader>f',
+        '<leader>b',
         function()
           require('conform').format { async = true, lsp_fallback = true }
         end,
@@ -789,7 +796,7 @@ require('lazy').setup({
   --  Here are some example plugins that I've included in the Kickstart repository.
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
-  require 'kickstart.plugins.debug',
+  -- require 'kickstart.plugins.debug',
   require 'kickstart.plugins.indent_line',
   require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
