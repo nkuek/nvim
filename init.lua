@@ -210,6 +210,8 @@ require('lazy').setup({
         ['<leader>l'] = { name = '[L]azy', _ = 'which_key_ignore' },
         ['<leader><leader>'] = { name = 'Apply changes', _ = 'which_key_ignore' },
         ['<leader>a'] = { name = '[A]dd to Harpoon', _ = 'which_key_ignore' },
+        ['<leader>Y'] = { name = 'Hard [Y]ank to +clipboard', _ = 'which_key_ignore' },
+        ['<leader>y'] = { name = 'Soft [y]ank to +clipboard', _ = 'which_key_ignore' },
       }
       -- visual mode
       require('which-key').register({
