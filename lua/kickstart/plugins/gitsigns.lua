@@ -10,13 +10,14 @@ return {
         relative_time = true,
         signs = {
           add = { text = '+' },
-          change = { text = '~' },
+          change = { text = '?' },
           delete = { text = '_' },
           topdelete = { text = '‾' },
           changedelete = { text = '~' },
         },
-        current_line_blame = true,
       },
+      current_line_blame = true,
+      numhl = true,
       on_attach = function(bufnr)
         local gitsigns = require 'gitsigns'
 
