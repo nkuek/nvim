@@ -83,10 +83,8 @@ vim.opt.termguicolors = true
 vim.opt.isfname:append '@-@'
 vim.opt.colorcolumn = '80'
 
-vim.g.minimap_width = 10
-vim.g.minimap_auto_start = 1
-vim.g.minimap_auto_start_win_enter = 1
-vim.g.minimap_git_colors = 1
+vim.g.netrw_list_hide = '^./$,^../$'
+vim.g.netrw_hide = 1
 
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
@@ -194,8 +192,33 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       current_line_blame = true,
-      preview_config = { row = 1, col = 0 },
     },
+    on_attach = function(bufnr)
+      local gitsigns = require 'gitsigns'
+
+      local function map(mode, l, r, opts)
+        opts = opts or {}
+        opts.buffer = bufnr
+        vim.keymap.set(mode, l, r, opts)
+      end
+
+      -- Navigation
+      map('n', ']c', function()
+        if vim.wo.diff then
+          vim.cmd.normal { ']c', bang = true }
+        else
+          gitsigns.nav_hunk 'next'
+        end
+      end)
+
+      map('n', '[c', function()
+        if vim.wo.diff then
+          vim.cmd.normal { '[c', bang = true }
+        else
+          gitsigns.nav_hunk 'prev'
+        end
+      end)
+    end,
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -227,6 +250,9 @@ require('lazy').setup({
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
         ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
         ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
+        ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
+        ['<leader>g'] = { name = '[G]it Fugitive', _ = 'which_key_ignore' },
+        ['<leader>l'] = { name = '[L]azy', _ = 'which_key_ignore' },
       }
       -- visual mode
       require('which-key').register({
