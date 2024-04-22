@@ -208,6 +208,8 @@ require('lazy').setup({
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[G]it Fugitive', _ = 'which_key_ignore' },
         ['<leader>l'] = { name = '[L]azy', _ = 'which_key_ignore' },
+        ['<leader><leader>'] = { name = 'Apply changes', _ = 'which_key_ignore' },
+        ['<leader>a'] = { name = '[A]dd to Harpoon', _ = 'which_key_ignore' },
       }
       -- visual mode
       require('which-key').register({
