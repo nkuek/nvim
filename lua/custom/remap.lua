@@ -39,6 +39,3 @@ vim.keymap.set('n', '<leader>lc', ':Lazy<CR>', { desc = '[L]azy [C]onsole' })
 vim.keymap.set('n', '<leader>ls', function()
   require('lazy').sync { show = false }
 end, { desc = '[L]azy [S]ync' })
-
--- Nvim Tree
-vim.keymap.set('n', '<leader>n', ':Neotree toggle<CR>', { desc = '[N]vim Tree' })

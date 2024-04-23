@@ -5,7 +5,9 @@
 return {
   'github/copilot.vim',
   'wfxr/minimap.vim',
+  'theprimeagen/vim-be-good',
   require 'custom.plugins.harpoon',
   require 'custom.plugins.undotree',
   require 'custom.plugins.fugitive',
+  require 'custom.plugins.trouble',
 }

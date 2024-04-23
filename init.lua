@@ -203,7 +203,6 @@ require('lazy').setup({
         ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
         ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
         ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-        ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
         ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
         ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
         ['<leader>g'] = { name = '[G]it Fugitive', _ = 'which_key_ignore' },
@@ -296,18 +295,39 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
+      local action_state = require 'telescope.actions.state'
+      local actions = require 'telescope.actions'
+
+      -- Ability to delete buffers in Telescope
+      local buffer_searcher
+      buffer_searcher = function()
+        require('telescope.builtin').buffers {
+          attach_mappings = function(prompt_bufnr, map)
+            local delete_buf = function()
+              local selection = action_state.get_selected_entry()
+              actions.close(prompt_bufnr)
+              vim.api.nvim_buf_delete(selection.bufnr, { force = true })
+            end
+
+            map('i', '<C-d>', delete_buf)
+
+            return true
+          end,
+        }
+      end
       vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
       vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
-      vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+      vim.keymap.set('n', '<leader>sf', function()
+        builtin.find_files { hidden = true, file_ignore_patterns = { '.git', 'node_modules' } }
+      end, { desc = '[S]earch [F]iles' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
       vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
       vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
-      vim.keymap.set('n', '<leader>f', builtin.buffers, { desc = '[F]ind existing buffers' })
+      vim.keymap.set('n', '<leader>f', buffer_searcher, { desc = '[F]ind existing buffers' })
       vim.keymap.set('n', '<leader>gh', builtin.git_files, { desc = 'Search [G]it [H]ub Files' })
-
       -- Slightly advanced example of overriding default behavior and theme
       vim.keymap.set('n', '<leader>/', function()
         -- You can pass additional configuration to Telescope to change the theme, layout, etc.
@@ -449,16 +469,6 @@ require('lazy').setup({
               callback = vim.lsp.buf.clear_references,
             })
           end
-
-          -- The following autocommand is used to enable inlay hints in your
-          -- code, if the language server you are using supports them
-          --
-          -- This may be unwanted, since they displace some of your code
-          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
-            end, '[T]oggle Inlay [H]ints')
-          end
         end,
       })
 
@@ -549,7 +559,7 @@ require('lazy').setup({
           require('conform').format { async = true, lsp_fallback = true }
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = 'Format [b]uffer',
       },
     },
     opts = {
@@ -737,11 +747,14 @@ require('lazy').setup({
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'tokyonight-storm'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
     end,
+    opts = {
+      terminal_colors = true,
+    },
   },
 
   -- Highlight todo, notes, etc in comments
@@ -788,7 +801,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'javascript', 'typescript' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
