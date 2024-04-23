@@ -8,7 +8,7 @@ return {
     vim.keymap.set('n', '<leader>gd', ':G diff<CR>', { noremap = true, desc = '[G]it [d]iff' })
     vim.keymap.set('n', '<leader>gc', ':G commit -m ', { noremap = true, desc = '[G]it [c]ommit' })
     vim.keymap.set('n', '<leader>gp', ':G push<CR>', { noremap = true, desc = '[G]it [P]ush' })
-    vim.keymap.set('n', '<leader>gP', ':G pull --rebase<CR>', { noremap = true, desc = '[G]it [p]ull' })
+    vim.keymap.set('n', '<leader>gP', ':G pull --rebase<CR><CR>', { noremap = true, desc = '[G]it [p]ull' })
     vim.keymap.set('n', '<leader>gC', ":G ac '", { noremap = true, desc = '[G]it [A]dd and [C]ommit' })
   end,
 }
