@@ -20,7 +20,7 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
+vim.opt.mouse = ''
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -293,21 +293,14 @@ require('lazy').setup({
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
-      local action_state = require 'telescope.actions.state'
       local actions = require 'telescope.actions'
 
       -- Ability to delete buffers in Telescope
       local buffer_searcher
       buffer_searcher = function()
         require('telescope.builtin').buffers {
-          attach_mappings = function(prompt_bufnr, map)
-            local delete_buf = function()
-              local selection = action_state.get_selected_entry()
-              actions.close(prompt_bufnr)
-              vim.api.nvim_buf_delete(selection.bufnr, { force = true })
-            end
-
-            map('i', '<C-d>', delete_buf)
+          attach_mappings = function(_, map)
+            map('i', '<C-d>', actions.delete_buffer)
 
             return true
           end,
@@ -696,7 +689,6 @@ require('lazy').setup({
           -- Accept the completion.
           --  This will auto-import if your LSP supports it.
           --  This will expand snippets if the LSP sent a snippet.
-          ['<Tab>'] = cmp.mapping.confirm { select = true },
           ['<Enter>'] = cmp.mapping.confirm { select = true },
 
           -- Manually trigger a completion from nvim-cmp.
@@ -803,6 +795,7 @@ require('lazy').setup({
       ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'javascript', 'typescript' },
       -- Autoinstall languages that are not installed
       auto_install = true,
+      autotag = { enable = true },
       highlight = {
         enable = true,
         -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
