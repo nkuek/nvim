@@ -6,8 +6,8 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', 'J', 'mzJ`z')
 
 -- Center screen when moving half screens up or down
-vim.keymap.set('n', '<C-j>', '<C-d>zz')
-vim.keymap.set('n', '<C-k>', '<C-u>zz')
+vim.keymap.set('n', '<C-i>', '<C-d>zz')
+vim.keymap.set('n', '<C-o>', '<C-u>zz')
 
 -- Center the screen while searching
 vim.keymap.set('n', 'n', 'nzzzv')
