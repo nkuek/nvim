@@ -83,7 +83,6 @@ vim.opt.undodir = vim.fn.stdpath 'data' .. '/undo'
 vim.opt.undofile = true
 vim.opt.termguicolors = true
 vim.opt.isfname:append '@-@'
-vim.opt.colorcolumn = '80'
 
 vim.g.netrw_list_hide = '^./$,^../$'
 vim.g.netrw_hide = 1
