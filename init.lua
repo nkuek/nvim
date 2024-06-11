@@ -61,6 +61,9 @@ vim.opt.splitbelow = true
 --  and `:help 'listchars'`
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.tabstop = 2
+vim.opt.softtabstop = 2
+vim.opt.shiftwidth = 2
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -76,7 +79,8 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 
 vim.opt.smartindent = true
-vim.opt.wrap = false
+vim.opt.wrap = true
+vim.opt.linebreak = true
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = vim.fn.stdpath 'data' .. '/undo'
