@@ -19,5 +19,6 @@ return {
     vim.keymap.set('n', '<C-f>', function()
       ui.nav_file(4)
     end)
+    vim.keymap.set('n', '<leader>sm', ':Telescope harpoon marks<CR>', { desc = '[S]earch Harpoon [M]arks' })
   end,
 }
