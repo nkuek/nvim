@@ -124,6 +124,9 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+-- Move to previous buffer
+vim.keymap.set('n', '<C-p>', '<C-^>')
+
 -- Custom Keymaps
 require 'custom.remap'
 
@@ -560,6 +563,10 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'eslint',
+        'prettier',
+        'tailwindcss',
+        'tsserver',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -586,6 +593,7 @@ require('lazy').setup({
         '<leader>b',
         function()
           require('conform').format { async = true, lsp_fallback = true }
+          vim.cmd 'EslintFixAll'
         end,
         mode = '',
         desc = 'Format [b]uffer',
