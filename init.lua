@@ -838,7 +838,7 @@ require('lazy').setup({
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
     opts = {
-      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'javascript', 'typescript' },
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'javascript', 'typescript', 'glsl' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       autotag = { enable = true },
@@ -853,6 +853,9 @@ require('lazy').setup({
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
+
+      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
+      parser_config.glsl.filetype = { 'glsl', 'vert', 'frag' }
 
       -- Prefer git instead of curl in order to improve connectivity in some environments
       require('nvim-treesitter.install').prefer_git = true
@@ -922,5 +925,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
+  pattern = { '*.vert', '*.frag', '*.glsl' },
+  callback = function()
+    vim.bo.filetype = 'glsl'
   end,
 })
