@@ -27,6 +27,12 @@ return {
             add_comment = { lhs = '<leader>oca', desc = 'add comment' },
             delete_comment = { lhs = '<leader>ocd', desc = 'delete comment' },
           },
+          review_diff = {
+            toggle_viewed = { lhs = '<leader>m', desc = 'toggle viewer viewed state' },
+          },
+          file_panel = {
+            toggle_viewed = { lhs = '<leader>m', desc = 'toggle viewer viewed state' },
+          },
         },
       }
     end,
