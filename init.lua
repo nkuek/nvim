@@ -95,6 +95,7 @@ vim.g.netrw_hide = 1
 --  See `:help vim.keymap.set()`
 
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', 'n', 'j')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
@@ -123,6 +124,10 @@ vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left wind
 vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
+vim.keymap.set('i', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('i', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('i', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('i', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Move to previous buffer
 vim.keymap.set('n', '<C-p>', '<C-^>')
@@ -580,7 +585,7 @@ require('lazy').setup({
         'eslint',
         'prettier',
         'tailwindcss',
-        'tsserver',
+        'ts_ls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 

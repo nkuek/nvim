@@ -19,14 +19,14 @@ vim.keymap.set('n', '<leader><leader>', function()
 end)
 
 -- Paste without replacing the clipboard
-vim.keymap.set('x', '<leader>p', [["_dP]])
+vim.keymap.set('x', '<leader>p', [["_dP]], { desc = '[P]aste without replacing clipboard' })
 
 -- Copy to system clipboard
 vim.keymap.set({ 'n', 'v' }, '<leader>y', [["+y]])
 vim.keymap.set('n', '<leader>Y', [["+Y]])
 
 -- Delete line without replacing the clipboard
-vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]])
+vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]], { desc = '[d]elete without replacing clipboard' })
 
 -- Replace All
 vim.keymap.set('n', '<leader>ra', [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = '[R]eplace [A]ll' })
